@@ -1,25 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {useMemo, useEffect, useState, Fragment } from "react";
+import Tabletop from "tabletop";
+import GetList from './GetList';
 
-function App() {
+
+export default function App({data1}) {
+
+  const [data, setData] = useState([]);
+
+
+  useEffect(() => {
+    
+    Tabletop.init({
+      key:data1,
+      simpleSheet: true
+    })
+      .then((data) => setData(data))
+      .catch((err) => console.warn(err));
+  }, []);
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React 
-        </a> 
-      </header>
-    </div>
+    <>
+
+<div>
+      <h1>Sample Upload from google sheet</h1>
+        </div>
+      <GetList data1 = {data} />
+      
+    </>
   );
 }
-
-export default App;
